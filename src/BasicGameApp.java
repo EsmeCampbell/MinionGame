@@ -42,13 +42,15 @@ public class BasicGameApp implements Runnable, KeyListener {
 	public BufferStrategy bufferStrategy;
 	public Image astroPic;
 
+	public Image CartoonRoad;
+
 	public Image minionPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 	private Astronaut astro;
 
-	private Astronaut minion;
+	private Minion minion;
 
 
    // Main method definition
@@ -71,6 +73,10 @@ public class BasicGameApp implements Runnable, KeyListener {
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
 		astro = new Astronaut(10,100);
+		CartoonRoadPic = Toolkit.getDefaultToolkit().getImage("astronaut.png");
+		CartoonRoad = new
+		minionPic = Toolkit.getDefaultToolkit().getImage("minions_PNG71.png");
+		minion = new Minion (10,100);
 
 
 	}// BasicGameApp()
@@ -99,6 +105,7 @@ public class BasicGameApp implements Runnable, KeyListener {
 	{
       //calls the move( ) code in the objects
 		astro.move();
+		minion.move();
 
 	}
 	
@@ -151,7 +158,8 @@ public class BasicGameApp implements Runnable, KeyListener {
 
       //draw the image of the astronaut
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
-		g.drawImage(minionPic, )
+		g.drawImage(CartoonRoadPic, CartoonRoad.xpos, CartoonRoad.ypos, CartoonRoad.width, CartoonRoad.height, null);
+		g.drawImage(minionPic, minion.xpos, minion.ypos, minion.width, minion.height, null);
 		g.dispose();
 
 		bufferStrategy.show();
@@ -164,9 +172,9 @@ public class BasicGameApp implements Runnable, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-	if(e.getKeyCode()==__){
-		smth.dx = 0;
-		smth.dy = 0;
+	if(e.getKeyCode()==38){
+		minion.dx = 0;
+		minion.dy = 2;
 	}
 	}
 
