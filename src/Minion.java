@@ -21,6 +21,10 @@ public class Minion {
     public void move() {
         xpos = xpos + dx;
         ypos = ypos + dy;
-
     }
-}
+
+    public void bounce(){
+      //  if(minion.ypos<0){
+            
+        }
+    }

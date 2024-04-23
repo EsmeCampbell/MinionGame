@@ -44,6 +44,10 @@ public class BasicGameApp implements Runnable, KeyListener {
 
 	public Image CartoonRoad;
 
+	public Image Car;
+
+	public int backgroundX = 0;
+
 	public Image minionPic;
 
    //Declare the objects used in the program
@@ -73,8 +77,8 @@ public class BasicGameApp implements Runnable, KeyListener {
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
 		astro = new Astronaut(10,100);
-		CartoonRoadPic = Toolkit.getDefaultToolkit().getImage("astronaut.png");
-		CartoonRoad = new
+		CartoonRoad = Toolkit.getDefaultToolkit().getImage("cartoon_road.jpg");
+		Car = Toolkit.getDefaultToolkit().getImage("Lucy'sCar.png");
 		minionPic = Toolkit.getDefaultToolkit().getImage("minions_PNG71.png");
 		minion = new Minion (10,100);
 
@@ -155,10 +159,16 @@ public class BasicGameApp implements Runnable, KeyListener {
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
-
+if(backgroundX>-1000){
+	backgroundX = backgroundX - 5;
+}else {backgroundX = 0;
+}
       //draw the image of the astronaut
+
+		g.drawImage(CartoonRoad, backgroundX, 0, WIDTH, HEIGHT, null);
+		g.drawImage(CartoonRoad, backgroundX + 1000, 0, WIDTH, HEIGHT, null);
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
-		g.drawImage(CartoonRoadPic, CartoonRoad.xpos, CartoonRoad.ypos, CartoonRoad.width, CartoonRoad.height, null);
+		g.drawImage(Car,650,400,300,300,null);
 		g.drawImage(minionPic, minion.xpos, minion.ypos, minion.width, minion.height, null);
 		g.dispose();
 
@@ -172,9 +182,20 @@ public class BasicGameApp implements Runnable, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		System.out.println(e.getKeyCode());
 	if(e.getKeyCode()==38){
-		minion.dx = 0;
+		minion.dy = -2;
+	}
+	if(e.getKeyCode() == 40){
 		minion.dy = 2;
+	}
+
+	if(e.getKeyCode() == 39){
+		minion.dx = 2;
+	}
+
+	if(e.getKeyCode() == 37){
+		minion.dx = -2;
 	}
 	}
 
