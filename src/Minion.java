@@ -24,7 +24,19 @@ public class Minion {
     }
 
     public void bounce(){
-      //  if(minion.ypos<0){
-            
+      if(ypos>630){
+          dy = -2;
+      }
+
+      if(ypos<0){
+          dy = 2;
+      }
+
+      if(xpos<0){
+          dx = 2;
+      }
+      if(xpos>1000){
+          dx = -2;
+      }
         }
     }

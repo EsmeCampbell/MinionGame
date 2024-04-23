@@ -40,7 +40,6 @@ public class BasicGameApp implements Runnable, KeyListener {
    public JPanel panel;
    
 	public BufferStrategy bufferStrategy;
-	public Image astroPic;
 
 	public Image CartoonRoad;
 
@@ -52,7 +51,7 @@ public class BasicGameApp implements Runnable, KeyListener {
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
-	private Astronaut astro;
+
 
 	private Minion minion;
 
@@ -75,8 +74,7 @@ public class BasicGameApp implements Runnable, KeyListener {
        
       //variable and objects
       //create (construct) the objects needed for the game and load up 
-		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
-		astro = new Astronaut(10,100);
+
 		CartoonRoad = Toolkit.getDefaultToolkit().getImage("cartoon_road.jpg");
 		Car = Toolkit.getDefaultToolkit().getImage("Lucy'sCar.png");
 		minionPic = Toolkit.getDefaultToolkit().getImage("minions_PNG71.png");
@@ -108,8 +106,9 @@ public class BasicGameApp implements Runnable, KeyListener {
 	public void moveThings()
 	{
       //calls the move( ) code in the objects
-		astro.move();
+
 		minion.move();
+		minion.bounce();
 
 	}
 	
@@ -160,14 +159,13 @@ public class BasicGameApp implements Runnable, KeyListener {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 if(backgroundX>-1000){
-	backgroundX = backgroundX - 5;
+	backgroundX = backgroundX - 10;
 }else {backgroundX = 0;
 }
       //draw the image of the astronaut
 
 		g.drawImage(CartoonRoad, backgroundX, 0, WIDTH, HEIGHT, null);
 		g.drawImage(CartoonRoad, backgroundX + 1000, 0, WIDTH, HEIGHT, null);
-		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
 		g.drawImage(Car,650,400,300,300,null);
 		g.drawImage(minionPic, minion.xpos, minion.ypos, minion.width, minion.height, null);
 		g.dispose();
