@@ -45,6 +45,8 @@ public class BasicGameApp implements Runnable, KeyListener {
 
 	public Image Car;
 
+	public Image elmacho;
+
 	public int backgroundX = 0;
 
 	public Image minionPic;
@@ -76,9 +78,10 @@ public class BasicGameApp implements Runnable, KeyListener {
       //create (construct) the objects needed for the game and load up 
 
 		CartoonRoad = Toolkit.getDefaultToolkit().getImage("cartoon_road.jpg");
-		Car = Toolkit.getDefaultToolkit().getImage("Lucy'sCar.png");
+		Car = Toolkit.getDefaultToolkit().getImage("gruscar.png");
 		minionPic = Toolkit.getDefaultToolkit().getImage("minions_PNG71.png");
 		minion = new Minion (10,100);
+		elmacho = new Villian ()
 
 
 	}// BasicGameApp()
@@ -158,15 +161,15 @@ public class BasicGameApp implements Runnable, KeyListener {
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
-if(backgroundX>-1000){
-	backgroundX = backgroundX - 10;
+if(backgroundX<1000){
+	backgroundX = backgroundX + 10;
 }else {backgroundX = 0;
 }
       //draw the image of the astronaut
 
 		g.drawImage(CartoonRoad, backgroundX, 0, WIDTH, HEIGHT, null);
-		g.drawImage(CartoonRoad, backgroundX + 1000, 0, WIDTH, HEIGHT, null);
-		g.drawImage(Car,650,400,300,300,null);
+		g.drawImage(CartoonRoad, backgroundX - 1000, 0, WIDTH, HEIGHT, null);
+		g.drawImage(Car,10,400,500,300,null);
 		g.drawImage(minionPic, minion.xpos, minion.ypos, minion.width, minion.height, null);
 		g.dispose();
 
