@@ -81,7 +81,7 @@ public class BasicGameApp implements Runnable, KeyListener {
 		Car = Toolkit.getDefaultToolkit().getImage("gruscar.png");
 		minionPic = Toolkit.getDefaultToolkit().getImage("minions_PNG71.png");
 		minion = new Minion (10,100);
-		elmacho = new Villian ()
+		elmacho = new Villian (100,100);
 
 
 	}// BasicGameApp()
