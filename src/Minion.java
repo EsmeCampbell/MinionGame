@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Minion {
     public String name;                //holds the name of the hero
     public int xpos;                //the x position
@@ -7,6 +9,8 @@ public class Minion {
     public int width;
     public int height;
     public boolean isAlive;
+    public Rectangle rec;
+
 
     public Minion(int pXpos, int pYpos) {
         xpos = pXpos;
@@ -16,15 +20,19 @@ public class Minion {
         width = 60;
         height = 60;
         isAlive = true;
+        rec = new Rectangle(xpos,ypos,width,height);
 
     }
     public void move() {
         xpos = xpos + dx;
         ypos = ypos + dy;
+        rec = new Rectangle(xpos,ypos,width,height);
+
     }
 
     public void bounce(){
-      if(ypos>630){
+        rec = new Rectangle(xpos,ypos,width,height);
+        if(ypos>630){
           dy = -2;
       }
 

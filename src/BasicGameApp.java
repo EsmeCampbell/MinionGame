@@ -45,9 +45,9 @@ public class BasicGameApp implements Runnable, KeyListener {
 
 	public Image Car;
 
-	public Image elmacho;
+//	public Image elmacho;
 
-	public Image Scarlet;
+//	public Image Scarlet;
 
 	public Image EvilMinionPic;
 
@@ -60,7 +60,7 @@ public class BasicGameApp implements Runnable, KeyListener {
 
 
 	private Minion minion;
-	private Minion EvilMinion;
+	public EvilMinion[] aMinion;
 
    // Main method definition
    // This is the code that runs first and automatically
@@ -84,12 +84,11 @@ public class BasicGameApp implements Runnable, KeyListener {
 		CartoonRoad = Toolkit.getDefaultToolkit().getImage("cartoon_road.jpg");
 		Car = Toolkit.getDefaultToolkit().getImage("Lucy'sCar.png");
 		minionPic = Toolkit.getDefaultToolkit().getImage("minions_PNG71.png");
+		EvilMinionPic = Toolkit.getDefaultToolkit().getImage("EvilMinion.jpg");
 		minion = new Minion (10,100);
-		EvilMinionPic = Toolkit.getDefaultToolkit().getImage("EvilMinion.png");
-		EvilMinion = new Minion(700,300);
-		EvilMinion = new Minion[100];
+		aMinion = new EvilMinion[100];
 		for(int i =0; i<100; i++){
-			EvilMinion[i] = new Minion((int)(Math.random()*1001), (int)(Math.random()*700));
+			aMinion[i] = new EvilMinion((int)(Math.random()*1001), (int)(Math.random()*700));
 		}
 //		elmacho = new Villian (100,100);
 //		Scarlet = new Villian (1000,100);
@@ -122,7 +121,15 @@ public class BasicGameApp implements Runnable, KeyListener {
       //calls the move( ) code in the objects
 
 		minion.move();
-		minion.bounce();
+		for(int i =0; i<aMinion.length; i++) {
+			aMinion[i].bounce();
+			if(minion.rec.intersects(aMinion[i].rec)){
+				minion.isAlive = false;
+				System.out.println("Intersects");
+
+			}
+		}
+
 
 	}
 	
@@ -182,7 +189,9 @@ if(backgroundX>-1000){
 		g.drawImage(CartoonRoad, backgroundX + 1000, 0, WIDTH, HEIGHT, null);
 		g.drawImage(Car,700,400,300,300,null);
 		g.drawImage(minionPic, minion.xpos, minion.ypos, minion.width, minion.height, null);
-
+				for(int i = 0; i<aMinion.length; i++){
+					g.drawImage(EvilMinionPic, aMinion[i].ypos, aMinion[i].xpos, aMinion[i].width, aMinion[i].height, null);
+				}
 		g.dispose();
 
 		bufferStrategy.show();
