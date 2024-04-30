@@ -7,7 +7,7 @@ public class Villian {
     public int height;
     public boolean isAlive;
 
-    public Villian(int pXpos, int pYpos) {
+    public Villian(int pXpos, int pYpos){
         xpos = pXpos;
         ypos = pYpos;
         dx = 1;
