@@ -9,15 +9,18 @@ public class EvilMinion {
     public  int width;
     public  int height;
     public boolean isAlive;
+
+    public boolean isCrashing = false;
+
     public Rectangle rec;
 
     public EvilMinion(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx =1;
-        dy =0;
-        width = 40;
-        height = 40;
+        dx =3;
+        dy =3;
+        width = 100;
+        height = 100;
         isAlive = true;
         rec = new Rectangle(xpos,ypos,width,height);
 
@@ -37,19 +40,19 @@ public class EvilMinion {
 
 
 
-        if(ypos>630){
-            dy = -2;
+        if(ypos>700){
+            dy = -3;
         }
 
         if(ypos<0){
-            dy = 2;
+            dy = 3;
         }
 
         if(xpos<0){
-            dx = 2;
+            dx = 3;
         }
         if(xpos>1000){
-            dx = -2;
+            dx = -3;
         }
     }
 }

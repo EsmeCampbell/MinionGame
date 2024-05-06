@@ -9,6 +9,9 @@ public class Minion {
     public int width;
     public int height;
     public boolean isAlive;
+
+    public boolean isCrashing = false;
+
     public Rectangle rec;
 
 
@@ -32,19 +35,30 @@ public class Minion {
 
     public void bounce(){
         rec = new Rectangle(xpos,ypos,width,height);
-        if(ypos>630){
-          dy = -2;
+        if(ypos>650){
+          dy = -3;
       }
 
       if(ypos<0){
-          dy = 2;
+          dy = 3;
       }
 
       if(xpos<0){
-          dx = 2;
+          dx = 3;
       }
       if(xpos>1000){
-          dx = -2;
+          dx = -3;
       }
         }
+    public void wrap() {
+        rec = new Rectangle(xpos, ypos, height, width);
+
+        xpos = xpos + dx;
+        ypos = ypos + dy;
+
+        if (xpos > 1000) {
+            xpos = -300;
+        }
+    }
+
     }

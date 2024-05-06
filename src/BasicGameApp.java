@@ -43,7 +43,9 @@ public class BasicGameApp implements Runnable, KeyListener {
 
 	public Image CartoonRoad;
 
-	public Image Car;
+	public Image CarPic;
+
+	public Image WinScreen;
 
 //	public Image elmacho;
 
@@ -55,11 +57,17 @@ public class BasicGameApp implements Runnable, KeyListener {
 
 	public Image minionPic;
 
+	public boolean winGame;
+
+
+	public int score = 0;
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 
 
 	private Minion minion;
+
+    private Minion Car;
 	public EvilMinion[] aMinion;
 
    // Main method definition
@@ -82,13 +90,19 @@ public class BasicGameApp implements Runnable, KeyListener {
       //create (construct) the objects needed for the game and load up 
 
 		CartoonRoad = Toolkit.getDefaultToolkit().getImage("cartoon_road.jpg");
-		Car = Toolkit.getDefaultToolkit().getImage("Lucy'sCar.png");
+		CarPic = Toolkit.getDefaultToolkit().getImage("Lucy'sCar.png");
+		WinScreen = Toolkit.getDefaultToolkit().getImage("WinScreen.jpg");
 		minionPic = Toolkit.getDefaultToolkit().getImage("minions_PNG71.png");
-		EvilMinionPic = Toolkit.getDefaultToolkit().getImage("EvilMinion.jpg");
-		minion = new Minion (10,100);
-		aMinion = new EvilMinion[100];
-		for(int i =0; i<100; i++){
-			aMinion[i] = new EvilMinion((int)(Math.random()*1001), (int)(Math.random()*700));
+		EvilMinionPic = Toolkit.getDefaultToolkit().getImage("EvilMinion.png");
+        Car = new Minion (700,400);
+        Car.width = 300;
+        Car.height = 300;
+        Car.dx = 3;
+		winGame = false;
+        minion = new Minion (10,100);
+		aMinion = new EvilMinion[70];
+		for(int i =0; i<70; i++){
+			aMinion[i] = new EvilMinion((int)(Math.random()*1000), (int)(Math.random()*700));
 		}
 //		elmacho = new Villian (100,100);
 //		Scarlet = new Villian (1000,100);
@@ -121,14 +135,24 @@ public class BasicGameApp implements Runnable, KeyListener {
       //calls the move( ) code in the objects
 
 		minion.move();
+        Car.wrap();
+		minion.bounce();
 		for(int i =0; i<aMinion.length; i++) {
 			aMinion[i].bounce();
-			if(minion.rec.intersects(aMinion[i].rec)){
+			if(minion.rec.intersects(aMinion[i].rec) && aMinion[i].isCrashing == false){
 				minion.isAlive = false;
-				System.out.println("Intersects");
-
+				aMinion[i].isCrashing = true;
+				score-=1;
+				System.out.println("Score: " + score);
+			}
+			if(minion.rec.intersects(aMinion[i].rec) == false){
+				aMinion[i].isCrashing = false;
 			}
 		}
+
+        if(minion.rec.intersects(Car.rec)){
+            winGame = true;
+        }
 
 
 	}
@@ -179,19 +203,30 @@ public class BasicGameApp implements Runnable, KeyListener {
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
-if(backgroundX>-1000){
-	backgroundX = backgroundX - 10;
-}else {backgroundX = 0;
-}
-      //draw the image of the astronaut
+		if(winGame == false) {
 
-		g.drawImage(CartoonRoad, backgroundX, 0, WIDTH, HEIGHT, null);
-		g.drawImage(CartoonRoad, backgroundX + 1000, 0, WIDTH, HEIGHT, null);
-		g.drawImage(Car,700,400,300,300,null);
-		g.drawImage(minionPic, minion.xpos, minion.ypos, minion.width, minion.height, null);
-				for(int i = 0; i<aMinion.length; i++){
-					g.drawImage(EvilMinionPic, aMinion[i].ypos, aMinion[i].xpos, aMinion[i].width, aMinion[i].height, null);
-				}
+
+			if (backgroundX > -1000) {
+				backgroundX = backgroundX - 10;
+			} else {
+				backgroundX = 0;
+			}
+			//draw the image of the astronaut
+
+			g.drawImage(CartoonRoad, backgroundX, 0, WIDTH, HEIGHT, null);
+			g.drawImage(CartoonRoad, backgroundX + 1000, 0, WIDTH, HEIGHT, null);
+			g.drawImage(CarPic, Car.xpos, Car.ypos, Car.width, Car.height, null);
+			g.drawImage(minionPic, minion.xpos, minion.ypos, minion.width, minion.height, null);
+			for (int i = 0; i < aMinion.length; i++) {
+				g.drawImage(EvilMinionPic, aMinion[i].xpos, aMinion[i].ypos, aMinion[i].width, aMinion[i].height, null);
+				//	g.drawRect( aMinion[i].rec.x, aMinion[i].rec.y, aMinion[i].rec.width, aMinion[i].rec.height);
+
+			}
+			g.setColor(Color.BLACK);
+			g.drawString("Score: " + score, 50, 50);
+		}else{
+			g.drawImage(WinScreen, 0, 0, WIDTH, HEIGHT,null);
+		}
 		g.dispose();
 
 		bufferStrategy.show();
