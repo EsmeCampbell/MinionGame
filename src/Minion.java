@@ -51,7 +51,7 @@ public class Minion {
       }
         }
     public void wrap() {
-        rec = new Rectangle(xpos, ypos, height, width);
+        rec = new Rectangle(xpos, ypos, width-100, height-100);
 
         xpos = xpos + dx;
         ypos = ypos + dy;
